@@ -8,5 +8,9 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn greet(name: &str) {
-    alert(&format!("Hello, {}!", name));
+    alert(&format!("Hello, {}!", to_hash_digest(name)));
+}
+
+fn to_hash_digest(s: &str) -> &str {
+    s
 }
