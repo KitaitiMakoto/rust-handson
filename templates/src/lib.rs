@@ -13,7 +13,8 @@ pub fn greet(name: &str) {
     alert(&format!("Hello, {}!", to_hash_digest(name)));
 }
 
-fn to_hash_digest(s: &str) -> u64 {
+#[wasm_bindgen]
+pub fn to_hash_digest(s: &str) -> u64 {
     let mut hasher = DefaultHasher::new();
     let b = s.as_bytes();
     hasher.write(b);

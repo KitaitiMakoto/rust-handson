@@ -53,6 +53,41 @@ export function greet(arg0) {
 
 }
 
+let cachedGlobalArgumentPtr = null;
+function globalArgumentPtr() {
+    if (cachedGlobalArgumentPtr === null) {
+        cachedGlobalArgumentPtr = wasm.__wbindgen_global_argument_ptr();
+    }
+    return cachedGlobalArgumentPtr;
+}
+
+let cachegetUint64Memory = null;
+function getUint64Memory() {
+    if (cachegetUint64Memory === null || cachegetUint64Memory.buffer !== wasm.memory.buffer) {
+        cachegetUint64Memory = new BigUint64Array(wasm.memory.buffer);
+    }
+    return cachegetUint64Memory;
+}
+/**
+* @param {string} arg0
+* @returns {BigInt}
+*/
+export function to_hash_digest(arg0) {
+    const ptr0 = passStringToWasm(arg0);
+    const len0 = WASM_VECTOR_LEN;
+    const retptr = globalArgumentPtr();
+    try {
+        wasm.to_hash_digest(retptr, ptr0, len0);
+        return getUint64Memory()[retptr / 8];
+
+
+    } finally {
+        wasm.__wbindgen_free(ptr0, len0 * 1);
+
+    }
+
+}
+
 export function __wbindgen_throw(ptr, len) {
     throw new Error(getStringFromWasm(ptr, len));
 }
